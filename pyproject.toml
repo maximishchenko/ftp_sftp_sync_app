@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "py-sftp"
+version = "0.0.1"
+description = ""
+authors = ["Maxim Ishchenko <maxim.ishchenko@gmail.com>"]
+readme = "README.md"
+packages = [{include = "py_sftp"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+pysftp = "^0.2.9"
+paramiko = "^3.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

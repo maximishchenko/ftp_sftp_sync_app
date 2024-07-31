@@ -1,0 +1,6 @@
+.vscode/
+.venv/
+poetry.lock
+/**/__pycache__/
+tmp/
+config/*.ini
