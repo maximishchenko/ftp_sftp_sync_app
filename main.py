@@ -31,10 +31,8 @@ def main():
     elif args.action == Action.IMPORT.value:
         remote_fs = remote_fs_client.list_dir(remote_fs_config.export_dir)
         for remote_file in remote_fs:
-            full_remote_file = f"{remote_fs_config.import_dir}/{remote_file}"
-            local_file_name = os.path.basename(full_remote_file)
-            local_file = f"{local_fs_config.import_dir}\\{local_file_name}"
-            remote_fs_client.import_file(full_remote_file, local_file)
+            local_file = f"{local_fs_config.import_dir}\\{remote_file}"
+            remote_fs_client.import_file(remote_file, local_file)
     else:
         logger.warning(f"Действие неизвестно: {args.action}")
     remote_fs_client.disconnect()

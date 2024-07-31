@@ -1,4 +1,5 @@
 import abc
+import ftplib
 import os
 import paramiko
 from app.data_attribute import (RemoteHostConfig, Protocol)
@@ -62,16 +63,26 @@ class SftpClient(RemoteFsClient):
 
 class FtpClient(RemoteFsClient):
 
-    def __init__(self, host_config: RemoteHostConfig): pass
+    def __init__(self, host_config: RemoteHostConfig):
+        self._client = ftplib.FTP()
+        self._client.connect(host=host_config.address, port=host_config.port)
+        self._client.login(host_config.username, host_config.password)
+        self._client.encoding = "utf-8"
 
     def list_dir(self, remote_dir: str) -> list:
-        return super().list_dir(remote_dir)
+        self._client.cwd(remote_dir)
+        return self._client.nlst()
 
     def export_file(self, local_file: str, remote_file: str) -> None:
-        return super().export_file(local_file, remote_file)
+        with open(local_file, "rb") as file:
+            self._client.storbinary(f"STOR {remote_file}", file)
     
     def import_file(self, remote_file: str, local_file: str) -> None:
-        return super().import_file(remote_file, local_file)
+        with open(local_file, 'wb') as file:
+            self._client.retrbinary(f'RETR {remote_file}', file.write)
+    
+    def disconnect(self) -> None:
+        self._client.quit()
     
 
 class RemoteFsClientFactory:
