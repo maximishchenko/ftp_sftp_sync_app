@@ -1,4 +1,4 @@
-name: Pylint
+name: Generage changelog.md
 
 on: [push]
 
@@ -20,4 +20,4 @@ jobs:
         pip install commitizen
     - name: Generate changelog.md
       run: |
-        pylint $(git ls-files '*.py')
+        cz bump
