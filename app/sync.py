@@ -29,10 +29,7 @@ class RemoteFsClient(abc.ABC):
 class SftpClient(RemoteFsClient):
 
     def __init__(self, host_config: RemoteHostConfig):
-        transport = paramiko.Transport(
-            host_config.address,
-            host_config.port
-        )
+        transport = paramiko.Transport((host_config.address, host_config.port))
         transport.connect(
             username=host_config.username,
             password=host_config.password
@@ -78,6 +75,7 @@ class FtpClient(RemoteFsClient):
             self._client.storbinary(f"STOR {remote_file}", file)
     
     def import_file(self, remote_file: str, local_file: str) -> None:
+        remote_file = os.path.basename(remote_file)
         with open(local_file, 'wb') as file:
             self._client.retrbinary(f'RETR {remote_file}', file.write)
     

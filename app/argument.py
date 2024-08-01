@@ -1,8 +1,16 @@
+"""Получение аргументов приложения, переданных в командной строке."""
+
 import argparse
 from app import data_attribute
 
 
 class ArgumentParser:
+    """Получение аргументов запуска приложения
+
+    Raises:
+        ValueError: исключение, возвращаемое в случае некорректного указания
+        значения параметра
+    """
 
     description = 'FTP/SFTP Synchronization'
 
@@ -33,9 +41,19 @@ class ArgumentParser:
         )
 
     @property
-    def action(self):
+    def action(self) -> str:
+        """Возвращает переданное действие
+
+        Returns:
+            str: название действия (export/import)
+        """
         return self._args.action
     
     @property
-    def config(self):
+    def config(self) -> str:
+        """Возвращает путь к файлу конфигурации, переданный приложению
+
+        Returns:
+            str: путь к файлу конфигурации клиента
+        """
         return self._args.config

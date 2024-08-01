@@ -1,12 +1,14 @@
+"""Обработка полученной конфигурации приложения"""
 import configparser
 from app.data_attribute import Config
 
 
 class ConfigurationParser:
+    """Обработка конфигурации приложения."""
 
     def __init__(self, config = Config.default_config.value):
         self._config = configparser.ConfigParser()
-        self._config.read(config)
+        self._config.read(config, encoding='utf-8')
 
     def get_remote_host_params(self) -> dict:
         return {

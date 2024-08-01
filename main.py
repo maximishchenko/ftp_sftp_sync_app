@@ -1,3 +1,5 @@
+import warnings
+
 from app.argument import ArgumentParser
 from app.config import ConfigurationParser
 from app.data_attribute import (
@@ -12,10 +14,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 def main():
     args = ArgumentParser()
-    config = ConfigurationParser()
+    config = ConfigurationParser(config=args.config)
     host_config = RemoteHostConfig(**config.get_remote_host_params())
     remote_fs_config = RemoteFsConfig(**config.get_remote_fs_params())
     local_fs_config = LocalFsConfig(**config.get_local_fs_params())
@@ -31,12 +32,14 @@ def main():
     elif args.action == Action.IMPORT.value:
         remote_fs = remote_fs_client.list_dir(remote_fs_config.export_dir)
         for remote_file in remote_fs:
+            full_remote_file = f"{remote_fs_config.export_dir}/{remote_file}"
             local_file = f"{local_fs_config.import_dir}\\{remote_file}"
-            remote_fs_client.import_file(remote_file, local_file)
+            remote_fs_client.import_file(full_remote_file, local_file)
     else:
         logger.warning(f"Действие неизвестно: {args.action}")
     remote_fs_client.disconnect()
 
 
 if __name__ == '__main__':
+    warnings.filterwarnings('ignore')
     main()  

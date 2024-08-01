@@ -10,6 +10,7 @@ packages = [{include = "py_sftp"}]
 python = "^3.7"
 pysftp = "^0.2.9"
 paramiko = "^3.4.0"
+cryptography = "42.0.8"
 
 
 [build-system]
