@@ -9,7 +9,8 @@ class LocalFs:
 
     @staticmethod
     def get_files(path: str) -> tuple:
-        return tuple([f"{path}\\{file}" for file in os.listdir(path)])
+        return tuple([f"{path}\\{file}" for file in os.listdir(path) \
+                      if os.path.isfile(os.path.join(path, file))])
     
 
 class RemoteFsClient(abc.ABC):
