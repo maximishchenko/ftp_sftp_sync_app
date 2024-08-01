@@ -4,4 +4,5 @@ poetry.lock
 /**/__pycache__/
 tmp/
 config/*.ini
-/dist
+dist/
+dos/

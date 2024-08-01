@@ -1,18 +1,25 @@
 [tool.poetry]
-name = "py-sftp"
+name = "ftp_sftp_sync"
 version = "0.0.1"
-description = ""
-authors = ["Maxim Ishchenko <maxim.ishchenko@gmail.com>"]
+description = "Sync files in folders via FTP/SFTP"
+authors = ["Maxim Ishchenko <m.g.ishchenko@yandex.ru>"]
 readme = "README.md"
-packages = [{include = "py_sftp"}]
+packages = [{include = "ftp_sftp_sync"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pysftp = "^0.2.9"
 paramiko = "^3.4.0"
 cryptography = "42.0.8"
 
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.group.dev.dependencies]
+commitizen = "3.0.0"
+pre-commit = "2.9.2"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_type = "semver"
+version_provider = "poetry"
+update_changelog_on_bump = true
+major_version_zero = true
