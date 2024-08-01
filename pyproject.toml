@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ftp_sftp_sync"
-version = "0.0.1"
+version = "0.0.2"
 description = "Sync files in folders via FTP/SFTP"
 authors = ["Maxim Ishchenko <m.g.ishchenko@yandex.ru>"]
 readme = "README.md"
